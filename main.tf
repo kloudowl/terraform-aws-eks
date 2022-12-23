@@ -41,11 +41,11 @@ resource "auth0_tenant" "default" {
   picture_url             = "https://content.${local.zone_name}/img/v2/icon.png"
   support_email           = var.support_email
   support_url             = var.support_url
-  allowed_logout_urls     = ["https://${var.main_host}/", "http://localhost:8000/"]
+  allowed_logout_urls     = ["https://${local.main_host}/", "http://localhost:8000/"]
   session_lifetime        = 8760
   sandbox_version         = "12"
   enabled_locales         = ["en"]
-  default_redirection_uri = "https://${var.main_host}/"
+  default_redirection_uri = "https://${local.main_host}/"
 
   session_cookie {
     mode = "non-persistent"
