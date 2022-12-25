@@ -26,7 +26,7 @@ resource "aws_s3_bucket_public_access_block" "block" {
  restrict_public_buckets = true
 }
 
-resource "aws_s3_bucket_versioning" "default" {
+resource "aws_s3_bucket_versioning" "main" {
   bucket = aws_s3_bucket.terraform-state-bucket.id
   versioning_configuration {
     status = "Enabled"
