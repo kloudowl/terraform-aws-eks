@@ -1,15 +1,3 @@
-variable "aws_region_for_cluster" {
-  description = "AWS region for IllumiDesk cluster"
-  type        = string
-  default     = "us-east-1"
-}
-
-variable "aws_region_for_state" {
-  description = "AWS region for Terraform state"
-  type        = string
-  default     = "us-east-1"
-}
-
 variable "aws_eks_cluster_ami_type" {
   description = "EKS cluster AMI type"
   type        = string
@@ -28,10 +16,22 @@ variable "aws_eks_cluster_version" {
   default     = "1.24"
 }
 
-variable "aws_vpc_name" {
-  description = "Name of the VPC"
+variable "aws_region_for_cluster" {
+  description = "AWS region for IllumiDesk cluster"
+  type        = string
+  default     = "us-east-1"
+}
+
+variable "vpc_name" {
+  description = "AWS VPC name"
   type        = string
   default     = "illumidesk-vpc"
+}
+
+variable "control_plane_subnet_ids" {
+  description = "EKS Control plane subnet IDs"
+  type        = list(string)
+  default     = []
 }
 
 variable "environment" {
@@ -52,8 +52,38 @@ variable "instance_type_for_node_group_2" {
   default     = "t3.small"
 }
 
+variable "private_subnets" {
+  description = "Private subnets"
+  type        = list(string)
+  default     = []
+}
+
+variable "public_subnets" {
+  description = "Public subnets"
+  type        = list(string)
+  default     = []
+}
+
+variable "remote_access_id" {
+  description = "Remote access ID"
+  type        = string
+  default     = ""
+}
+
+variable "service_account_role_arn" {
+  description = "Service account role ARN"
+  type        = string
+  default     = ""
+}
+
+variable "subnet_ids" {
+  description = "VPC Subent IDs"
+  type        = list(string)
+  default     = []
+}
+
 variable "tags" {
-  description = "Tags"
+  description = "Tags for resources"
   type        = map(string)
   default     = {
     Name    = "illumidesk-eks"
