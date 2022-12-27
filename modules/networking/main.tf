@@ -6,15 +6,19 @@ module "vpc" {
   cidr = var.vpc_cidr
 
   azs      = local.azs
+  create_database_subnet_group = true
   private_subnets = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 4, k)]
   public_subnets  = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 48)]
   intra_subnets   = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 52)]
+  database_subnets = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 56)]
 
   create_egress_only_igw          = true
 
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+
   enable_nat_gateway   = true
   single_nat_gateway   = true
-  enable_dns_hostnames = true
 
   enable_flow_log                      = true
   create_flow_log_cloudwatch_iam_role  = true

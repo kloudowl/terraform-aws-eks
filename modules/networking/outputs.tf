@@ -3,6 +3,11 @@ output "azs" {
   value       = data.aws_availability_zones.available.names
 }
 
+output "database_subnets" {
+  description = "Subnets for RDS database"
+  value       = module.vpc.database_subnets
+}
+
 output "intra_subnets" {
   description = "Subnets for internal communication"
   value       = module.vpc.intra_subnets
@@ -11,6 +16,11 @@ output "intra_subnets" {
 output "private_subnets" {
   description = "Private subnets"
   value = module.vpc.private_subnets
+}
+
+output "private_subnets_cidr_blocks" {
+  description = "Private subnet CIDR blocks"
+  value = module.vpc.private_subnets_cidr_blocks
 }
 
 output "public_subnets" {

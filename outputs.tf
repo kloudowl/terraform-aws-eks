@@ -28,6 +28,11 @@ output "private_subnets" {
   value       = module.networking.private_subnets
 }
 
+output "private_subnets_cidr_blocks" {
+  description = "The VPC's private subnet CIDR blocks"
+  value       = module.networking.private_subnets_cidr_blocks
+}
+
 ################################################################################
 # Cluster
 ################################################################################
@@ -47,14 +52,14 @@ output "cluster_endpoint" {
   value       = module.eks.cluster_endpoint
 }
 
-output "cluster_id" {
+output "eks_cluster_id" {
   description = "The ID of the EKS cluster. Note: currently a value is returned only for local EKS clusters created on Outposts"
-  value       = module.eks.cluster_id
+  value       = module.eks.eks_cluster_id
 }
 
-output "cluster_name" {
+output "eks_cluster_name" {
   description = "The name of the EKS cluster"
-  value       = module.eks.cluster_name
+  value       = module.eks.eks_cluster_name
 }
 
 output "cluster_oidc_issuer_url" {
@@ -208,6 +213,26 @@ output "eks_managed_node_groups_autoscaling_group_names" {
   value       = module.eks.eks_managed_node_groups_autoscaling_group_names
 }
 
+################################################################################
+# RDS
+################################################################################
+
+output "database_subnets" {
+  description = "RDS database subnets"
+  value       = module.networking.database_subnets
+}
+
+output "cluster_master_username" {
+  value       = module.rds.cluster_master_username
+  description = "The master username for the RDS cluster"
+  sensitive   = true
+}
+
+output "cluster_master_password" {
+  value       = module.rds.cluster_master_password
+  description = "The master password for the RDS cluster"
+  sensitive   = true
+}
 
 ################################################################################
 # Additional

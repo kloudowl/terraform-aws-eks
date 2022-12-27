@@ -6,7 +6,7 @@ data "aws_ami" "eks_default" {
 
   filter {
     name   = "name"
-    values = ["amazon-eks-node-${var.cluster_version}-v*"]
+    values = ["amazon-eks-node-${var.eks_cluster_version}-v*"]
   }
 }
 
@@ -16,7 +16,7 @@ data "aws_ami" "eks_default_arm" {
 
   filter {
     name   = "name"
-    values = ["amazon-eks-arm64-node-${var.cluster_version}-v*"]
+    values = ["amazon-eks-arm64-node-${var.eks_cluster_version}-v*"]
   }
 }
 
@@ -26,7 +26,7 @@ data "aws_ami" "eks_default_bottlerocket" {
 
   filter {
     name   = "name"
-    values = ["bottlerocket-aws-k8s-${var.cluster_version}-x86_64-*"]
+    values = ["bottlerocket-aws-k8s-${var.eks_cluster_version}-x86_64-*"]
   }
 }
 

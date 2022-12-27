@@ -22,17 +22,54 @@ variable "aws_region_for_state" {
   default     = "us-east-1"
 }
 
-variable "cluster_name" {
+variable "eks_cluster_name" {
   description = "Name of the EKS cluster"
   type        = string
   default     = "illumidesk-eks"
 }
 
-variable "cluster_version" {
+variable "rds_cluster_name" {
+  description = "Name of the RDS cluster"
+  type        = string
+  default     = "illumidesk-rds"
+}
+
+variable "rds_engine_mode" {
+  description = "RDS Aurora engine mode"
+  type        = string
+  default     = "provisioned"
+}
+
+variable "rds_engine_version" {
+  description = "RDS Aurora engine version"
+  type        = string
+  default     = "13.6"
+}
+
+variable "rds_instance_class" {
+  description = "RDS Aurora instance class"
+  type        = string
+  default     = "db.serverless"
+}
+
+variable "rds_master_username" {
+  description = "The RDS master username"
+  type        = string
+  default     = "illumidesk"
+}
+
+variable "rds_parameter_group_family" {
+  description = "RDS Aurora parameter group family"
+  type        = string
+  default     = "aurora-postgresql13"
+}
+
+variable "eks_cluster_version" {
   description = "EKS cluster version"
   type        = string
   default     = "1.24"
 }
+
 
 variable "vpc_name" {
   description = "Name of the VPC"
