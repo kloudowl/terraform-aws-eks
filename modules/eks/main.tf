@@ -2,8 +2,8 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 19.0"
 
-  cluster_name                   = var.cluster_name
-  cluster_version                = var.cluster_version
+  cluster_name                   = var.eks_cluster_name
+  cluster_version                = var.eks_cluster_version
   cluster_endpoint_public_access = true
 
   cluster_addons = {
@@ -52,7 +52,7 @@ module "eks" {
 }
 
 resource "aws_iam_policy" "node_additional" {
-  name        = "${var.cluster_name}-additional"
+  name        = "${var.eks_cluster_name}-additional"
   description = "Additional policy for EKS managed node group"
 
   policy = jsonencode({
