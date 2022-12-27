@@ -5,10 +5,10 @@ module "vpc" {
   name = var.vpc_name
   cidr = var.vpc_cidr
 
-  azs             = var.azs
-  private_subnets = [for k, v in var.azs : cidrsubnet(var.vpc_cidr, 4, k)]
-  public_subnets  = [for k, v in var.azs : cidrsubnet(var.vpc_cidr, 8, k + 48)]
-  intra_subnets   = [for k, v in var.azs : cidrsubnet(var.vpc_cidr, 8, k + 52)]
+  azs      = local.azs
+  private_subnets = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 4, k)]
+  public_subnets  = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 48)]
+  intra_subnets   = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 52)]
 
   create_egress_only_igw          = true
 
@@ -51,6 +51,10 @@ resource "aws_security_group" "remote_access" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
+
+  depends_on = [
+    module.vpc
+  ]
 
   tags = var.tags
 }

@@ -3,11 +3,6 @@ output "aws_auth_configmap_yaml" {
   value       = module.eks.aws_auth_configmap_yaml
 }
 
-output "aws_eks_cluster_name" {
-  description = "Kubernetes Cluster Name"
-  value       = module.eks.cluster_name
-}
-
 output "cluster_security_group_id" {
   description = "Security group ids attached to the cluster control plane"
   value       = module.eks.cluster_security_group_id

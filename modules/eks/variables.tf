@@ -1,16 +1,16 @@
-variable "aws_eks_cluster_ami_type" {
+variable "ami_type" {
   description = "EKS cluster AMI type"
   type        = string
   default     = "AL2_x86_64"
 }
 
-variable "aws_eks_cluster_name" {
+variable "cluster_name" {
   description = "Name of the EKS cluster"
   type        = string
   default     = "illumidesk-eks"
 }
 
-variable "aws_eks_cluster_version" {
+variable "cluster_version" {
   description = "EKS cluster version"
   type        = string
   default     = "1.24"
@@ -22,16 +22,16 @@ variable "aws_region_for_cluster" {
   default     = "us-east-1"
 }
 
-variable "vpc_name" {
-  description = "AWS VPC name"
-  type        = string
-  default     = "illumidesk-vpc"
+variable "azs" {
+  description = "AWS region for IllumiDesk cluster"
+  type        = list(string)
+  default     = ["us-east-1a", "us-east-1b", "us-east-1c"]
 }
 
-variable "control_plane_subnet_ids" {
-  description = "EKS Control plane subnet IDs"
-  type        = list(string)
-  default     = []
+variable "vpc_id" {
+  description = "AWS VPC name"
+  type        = string
+  default     = "illumidesk-eks"
 }
 
 variable "environment" {
@@ -64,14 +64,14 @@ variable "public_subnets" {
   default     = []
 }
 
-variable "remote_access_id" {
-  description = "Remote access ID"
+variable "service_account_role_arn" {
+  description = "Service account role ARN"
   type        = string
   default     = ""
 }
 
-variable "service_account_role_arn" {
-  description = "Service account role ARN"
+variable "remote_access_security_group_id" {
+  description = "Remote access security group ID"
   type        = string
   default     = ""
 }

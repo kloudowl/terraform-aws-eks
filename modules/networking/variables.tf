@@ -4,16 +4,16 @@ variable "aws_region_for_cluster" {
   default     = "us-east-1"
 }
 
-variable "azs" {
-  description = "VPC AZs"
-  type        = list(string)
-  default     = ["us-east-1a", "us-east-1b", "us-east-1c"]
-}
-
 variable "environment" {
   description = "Environment"
   type        = string
   default     = "dev"
+}
+
+variable "private_subnets" {
+  description = "VPC private subnets"
+  type        = list(string)
+  default     = []
 }
 
 variable "tags" {
@@ -31,7 +31,7 @@ variable "vpc_cidr" {
 }
 
 variable "vpc_name" {
-  description = "VPC ID for the EKS Cluster"
+  description = "AWS VPC name"
   type        = string
-  default     = "illumidesk-vpc"
+  default     = "illumidesk-eks"
 }
