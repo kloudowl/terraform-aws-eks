@@ -1,46 +1,60 @@
-resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "~> 3.0"
 
-  tags = tomap({
-    "Name"                                      = "${var.aws_eks_cluster_name}",
-    "kubernetes.io/cluster/${var.aws_eks_cluster_name}" = "shared",
-  })
-}
+  name = var.vpc_name
+  cidr = var.vpc_cidr
 
-resource "aws_subnet" "main" {
-  count = 2
+  azs      = local.azs
+  private_subnets = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 4, k)]
+  public_subnets  = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 48)]
+  intra_subnets   = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 52)]
 
-  availability_zone       = data.aws_availability_zones.available.names[count.index]
-  cidr_block              = "10.0.${count.index}.0/24"
-  map_public_ip_on_launch = true
-  vpc_id                  = aws_vpc.main.id
+  create_egress_only_igw          = true
 
-  tags = tomap({
-    "Name" = var.aws_eks_cluster_name,
-    "kubernetes.io/cluster/${var.aws_eks_cluster_name}" = "shared",
-  })
-}
+  enable_nat_gateway   = true
+  single_nat_gateway   = true
+  enable_dns_hostnames = true
 
-resource "aws_internet_gateway" "main" {
-  vpc_id = aws_vpc.main.id
+  enable_flow_log                      = true
+  create_flow_log_cloudwatch_iam_role  = true
+  create_flow_log_cloudwatch_log_group = true
 
-  tags = {
-    Name = var.aws_eks_cluster_name
+  public_subnet_tags = {
+    "kubernetes.io/role/elb" = 1
   }
-}
 
-resource "aws_route_table" "main" {
-  vpc_id = aws_vpc.main.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.main.id
+  private_subnet_tags = {
+    "kubernetes.io/role/internal-elb" = 1
   }
+
+  tags = var.tags
 }
 
-resource "aws_route_table_association" "main" {
-  count = 2
+resource "aws_security_group" "remote_access" {
+  name_prefix = "${var.vpc_name}-remote-access"
+  description = "Allow remote SSH access"
+  vpc_id      = module.vpc.vpc_id
 
-  subnet_id      = aws_subnet.main[count.index].id
-  route_table_id = aws_route_table.main.id
+  ingress {
+    description = "SSH access"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/8"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  depends_on = [
+    module.vpc
+  ]
+
+  tags = var.tags
 }
