@@ -1,5 +1,6 @@
 resource "random_string" "suffix" {
   length  = 8
+  lower  = true
   special = false
 }
 
@@ -36,7 +37,15 @@ module "rds" {
   rds_instance_class          = var.rds_instance_class
   rds_parameter_group_family  = var.rds_parameter_group_family
   private_subnets_cidr_blocks = module.networking.private_subnets_cidr_blocks
-  database_subnets         = module.networking.database_subnets
+  database_subnets            = module.networking.database_subnets
+  vpc_id                      = module.networking.vpc_id
+  tags                        = local.tags
+}
+
+module "elasticache" {
+  source                      = "./modules/elasticache"
+  private_subnets_cidr_blocks = module.networking.private_subnets_cidr_blocks
+  elasticache_subnets         = module.networking.elasticache_subnets
   vpc_id                      = module.networking.vpc_id
   tags                        = local.tags
 }
