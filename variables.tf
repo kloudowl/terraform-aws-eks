@@ -28,12 +28,6 @@ variable "eks_cluster_name" {
   default     = "illumidesk-eks"
 }
 
-variable "rds_cluster_name" {
-  description = "Name of the RDS cluster"
-  type        = string
-  default     = "illumidesk-rds"
-}
-
 variable "rds_engine_mode" {
   description = "RDS Aurora engine mode"
   type        = string
@@ -74,7 +68,7 @@ variable "eks_cluster_version" {
 variable "vpc_name" {
   description = "Name of the VPC"
   type        = string
-  default     = "illumidesk-eks"
+  default     = "illumidesk-vpc"
 }
 
 variable "environment" {

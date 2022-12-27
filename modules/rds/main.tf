@@ -3,7 +3,7 @@ module "cluster" {
   source  = "terraform-aws-modules/rds-aurora/aws"
   version = "~> 7.6.0"
 
-  name              = "illumidesk-rds-postgresqlv2"
+  name              = "illumidesk-rds-cluster"
   engine            = data.aws_rds_engine_version.postgresql.engine
   engine_mode       = "provisioned"
   engine_version    = data.aws_rds_engine_version.postgresql.version

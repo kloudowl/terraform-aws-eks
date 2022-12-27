@@ -8,6 +8,11 @@ output "database_subnets" {
   value       = module.vpc.database_subnets
 }
 
+output "elasticache_subnets" {
+  description = "Subnets for Elasticache"
+  value       = module.vpc.elasticache_subnets
+}
+
 output "intra_subnets" {
   description = "Subnets for internal communication"
   value       = module.vpc.intra_subnets

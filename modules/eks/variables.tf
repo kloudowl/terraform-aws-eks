@@ -31,7 +31,7 @@ variable "azs" {
 variable "vpc_id" {
   description = "AWS VPC name"
   type        = string
-  default     = "illumidesk-eks"
+  default     = "illumidesk-vpc"
 }
 
 variable "environment" {
