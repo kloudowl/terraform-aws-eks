@@ -4,12 +4,6 @@ variable "access_key" {
   default     = ""
 }
 
-variable "secret_key" {
-  description = "AWS secret key id"
-  type        = string
-  default     = ""
-}
-
 variable "aws_region_for_cluster" {
   description = "AWS region for IllumiDesk cluster"
   type        = string
@@ -22,10 +16,40 @@ variable "aws_region_for_state" {
   default     = "us-east-1"
 }
 
+variable "ecr_repository_name" {
+  description = "ECR cluster version"
+  type        = string
+  default     = "illumidesk"
+}
+
+variable "eks_cluster_version" {
+  description = "EKS cluster version"
+  type        = string
+  default     = "1.24"
+}
+
+variable "environment" {
+  description = "Environment"
+  type        = string
+  default     = "dev"
+}
+
 variable "eks_cluster_name" {
   description = "Name of the EKS cluster"
   type        = string
   default     = "illumidesk-eks"
+}
+
+variable "instance_type_for_node_group_1" {
+  description = "Instance type for node group 1"
+  type        = string
+  default     = "t3.small"
+}
+
+variable "instance_type_for_node_group_2" {
+  description = "Instance type for node group 2"
+  type        = string
+  default     = "t3.small"
 }
 
 variable "rds_engine_mode" {
@@ -58,34 +82,26 @@ variable "rds_parameter_group_family" {
   default     = "aurora-postgresql13"
 }
 
-variable "eks_cluster_version" {
-  description = "EKS cluster version"
+variable "s3_media_bucket_name" {
+  description = "AWS S3 media bucket name"
   type        = string
-  default     = "1.24"
+  default     = "illumidesk-api-media"
 }
 
+variable "s3_static_bucket_name" {
+  description = "AWS S3 static bucket name"
+  type        = string
+  default     = "illumidesk-api-static"
+}
+
+variable "secret_key" {
+  description = "AWS secret key id"
+  type        = string
+  default     = ""
+}
 
 variable "vpc_name" {
   description = "Name of the VPC"
   type        = string
   default     = "illumidesk-vpc"
 }
-
-variable "environment" {
-  description = "Environment"
-  type        = string
-  default     = "dev"
-}
-
-variable "instance_type_for_node_group_1" {
-  description = "Instance type for node group 1"
-  type        = string
-  default     = "t3.small"
-}
-
-variable "instance_type_for_node_group_2" {
-  description = "Instance type for node group 2"
-  type        = string
-  default     = "t3.small"
-}
-
