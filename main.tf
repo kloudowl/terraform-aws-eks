@@ -52,11 +52,23 @@ module "elasticache" {
 
 module "s3" {
   source = "./modules/s3"
-  tags = local.tags
+  tags   = local.tags
 }
 
 module "ecr" {
-  source = "./modules/ecr"
+  source              = "./modules/ecr"
   ecr_repository_name = local.ecr_repository_name
-  tags = local.tags
+  tags                = local.tags
+}
+
+module "backups" {
+  source                = "./modules/backups"
+  backup_plan_name      = local.backup_plan_name
+  backup_role_name      = local.backup_role_name
+  backup_selection_name = local.backup_selection_name
+  backup_vault_name     = local.backup_vault_name
+  bucket_arn_media      = module.s3.bucket_arn_media
+  bucket_arn_static     = module.s3.bucket_arn_static
+  database_arn          = module.rds.database_arn
+  tags                  = local.tags
 }

@@ -16,6 +16,30 @@ variable "aws_region_for_state" {
   default     = "us-east-1"
 }
 
+variable "backup_plan_name" {
+  description = "Backup plan name"
+  type        = string
+  default     = "illumidesk-plan"
+}
+
+variable "backup_role_name" {
+  description = "Backup role name"
+  type        = string
+  default     = "illumidesk-backup-role"
+}
+
+variable "backup_selection_name" {
+  description = "Backup selection name"
+  type        = string
+  default     = "illumidesk-backup-role"
+}
+
+variable "backup_vault_name" {
+  description = "Backup vault name"
+  type        = string
+  default     = "illumidesk-vault"
+}
+
 variable "ecr_repository_name" {
   description = "ECR cluster version"
   type        = string
