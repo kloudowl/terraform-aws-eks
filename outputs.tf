@@ -34,6 +34,30 @@ output "private_subnets_cidr_blocks" {
 }
 
 ################################################################################
+# Backups
+################################################################################
+
+output "aws_backup_plan_id" {
+  description = "The backup plan ID"
+  value       = module.backups.aws_backup_plan_id
+}
+
+output "aws_backup_vault_id" {
+  description = "The backup vault ID"
+  value       = module.backups.aws_backup_vault_id
+}
+
+output "aws_backup_selection_id" {
+  description = "The backup selection ID"
+  value       = module.backups.aws_backup_selection_id
+}
+
+output "aws_backup_role_arn" {
+  description = "The backup IAM role ARN"
+  value       = module.backups.aws_backup_role_arn
+}
+
+################################################################################
 # Cluster
 ################################################################################
 
