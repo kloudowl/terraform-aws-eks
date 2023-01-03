@@ -167,6 +167,16 @@ output "cluster_iam_role_unique_id" {
   value       = module.eks.cluster_iam_role_unique_id
 }
 
+output "s3_media_iam_role_arn" {
+  description = "IAM role ARN of the S3 media bucket"
+  value       = module.s3.bucket_id_media
+}
+
+output "s3_static_iam_role_arn" {
+  description = "IAM role ARN of the S3 static bucket"
+  value       = module.s3.bucket_id_static
+}
+
 ################################################################################
 # EKS Addons
 ################################################################################
@@ -232,6 +242,20 @@ output "cluster_master_password" {
   value       = module.rds.cluster_master_password
   description = "The master password for the RDS cluster"
   sensitive   = true
+}
+
+################################################################################
+# S3
+################################################################################
+
+output "bucket_id_media" {
+  description = "S3 bucket id for media"
+  value       = module.s3.bucket_id_media
+}
+
+output "bucket_id_static" {
+  description = "S3 bucket id for static"
+  value       = module.s3.bucket_id_static
 }
 
 ################################################################################
