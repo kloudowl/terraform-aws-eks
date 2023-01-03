@@ -52,4 +52,11 @@ module "elasticache" {
 
 module "s3" {
   source = "./modules/s3"
+  tags = local.tags
+}
+
+module "ecr" {
+  source = "./modules/ecr"
+  ecr_repository_name = local.ecr_repository_name
+  tags = local.tags
 }

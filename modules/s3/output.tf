@@ -1,4 +1,3 @@
-
 output "bucket_id_media" {
   value = aws_s3_bucket.media.id
 }

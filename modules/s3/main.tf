@@ -1,9 +1,11 @@
 resource "aws_s3_bucket" "static" {
-  bucket = var.bucket_name_static
+  bucket = "${var.s3_static_bucket_name}"
+  tags = var.tags
 }
 
 resource "aws_s3_bucket" "media" {
-  bucket = var.bucket_name_media
+  bucket = "${var.s3_media_bucket_name}"
+  tags = var.tags
 }
 
 resource "aws_iam_role" "main" {
@@ -13,4 +15,5 @@ resource "aws_iam_role" "main" {
   inline_policy {
     policy = data.aws_iam_policy_document.domain_join_policy.json
   }
+  tags = var.tags
 }
