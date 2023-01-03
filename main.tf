@@ -1,6 +1,6 @@
 resource "random_string" "suffix" {
   length  = 8
-  lower  = true
+  lower   = true
   special = false
 }
 
@@ -48,4 +48,8 @@ module "elasticache" {
   elasticache_subnets         = module.networking.elasticache_subnets
   vpc_id                      = module.networking.vpc_id
   tags                        = local.tags
+}
+
+module "s3" {
+  source = "./modules/s3"
 }
