@@ -1,11 +1,11 @@
 <!-- BEGIN_TF_DOCS -->
-# IllumiDesk Cloud
+# Terraform AWS EKS Terraform Module
 
-This is the configuration used to deploy the IllumiDesk stack with Terraform. This setup uses AWS S3 + AWS DynamoDB to manage Terraform state.
+This is an opinionated setup that uses Terraform to manage an AWS EKS.
 
 ## What will this setup do?
 
-This is a Terraform configuration that manages the IllumiDesk stack. It will create the following resources:
+This is a Terraform configuration that manages the an AWS EKS stack. It will create the following resources:
 
 - AWS Application Load Balancer
 - AWS EKS Cluster
